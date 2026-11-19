@@ -1,7 +1,7 @@
 import type { AppKey, Settings } from '../types';
 
 /** 全部合法应用 key */
-export const ALL_APPS: AppKey[] = ['trae', 'buddy', 'qoder', 'doubao', 'buddy-ai'];
+export const ALL_APPS: AppKey[] = ['trae', 'buddy', 'qoder', 'doubao', 'buddy-ai', 'autoclaw'];
 
 /** 参与资源池调度的应用（豆包无池；custom 池恒可见不在此列） */
 export const POOL_APPS: AppKey[] = ['trae', 'buddy', 'qoder', 'buddy-ai'];

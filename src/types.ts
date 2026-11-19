@@ -29,6 +29,12 @@ export type ViewKey =
   | 'qoder-credits'
   | 'qoder-api-service'
   | 'qoder-settings'
+  // AutoClaw 应用页面（智谱澳龙：概述 / 账号 / 签到 / 积分 / 环境配置）
+  | 'autoclaw-overview'
+  | 'autoclaw-accounts'
+  | 'autoclaw-checkin'
+  | 'autoclaw-credits'
+  | 'autoclaw-settings'
   // BuddyAI 应用页面（buddy-ai 国际版独立池；六页子导航对齐国内 Buddy，应用显示默认不展示）
   | 'buddyai-overview'
   | 'buddyai-accounts'
@@ -38,7 +44,7 @@ export type ViewKey =
   | 'buddyai-settings';
 
 /** 侧边栏应用切换（左下角 Tab）：Trae 当前菜单 / Buddy / Qoder（F-80）/ 豆包 / BuddyAI（buddy-ai 国际版） */
-export type AppKey = 'trae' | 'buddy' | 'qoder' | 'doubao' | 'buddy-ai';
+export type AppKey = 'trae' | 'buddy' | 'qoder' | 'doubao' | 'buddy-ai' | 'autoclaw';
 
 /** 各应用的默认落地页 */
 export const APP_HOME_VIEW: Record<AppKey, ViewKey> = {
@@ -47,6 +53,7 @@ export const APP_HOME_VIEW: Record<AppKey, ViewKey> = {
   qoder: 'qoder-overview',
   doubao: 'doubao-overview',
   'buddy-ai': 'buddyai-overview',
+  autoclaw: 'autoclaw-overview',
 };
 
 
@@ -2044,4 +2051,109 @@ export interface QoderCreditsSnapshot {
   /** 当日获得（签到奖励合计；无签到数据 null） */
   earned?: number | null;
   accounts: { user_id: string; total: number | null }[];
+}
+
+
+// ── AutoClaw（智谱澳龙）DTO ────────────────────────────────────────────────
+// 字段名严格 snake_case，与 src-tauri/src/commands/autoclaw.rs 逐字对齐。
+
+export interface AutoClawAccountView {
+  id: string;
+  uid: string;
+  nickname: string;
+  region: string;
+  credential_source: string;
+  /** uid 尾号提示（后端不回传 token 本体） */
+  token_hint: string;
+  has_credential: boolean;
+  needs_relogin: boolean;
+  relogin_reason: string;
+  group_id: string;
+  note: string;
+  credits_balance: number | null;
+  credits_fetched_at: string | null;
+  last_checkin_date: string;
+  last_checkin_status: string;
+}
+
+export interface AutoClawSettings {
+  data_dir: string;
+  app_path: string;
+  auto_checkin: boolean;
+  checkin_hhmm: string;
+}
+
+export interface AutoClawEnvCheck {
+  installed: boolean;
+  running: boolean;
+  exe_path: string | null;
+  data_dir: string | null;
+  accounts_dir: string | null;
+  has_local_state: boolean;
+  account_dirs: number;
+}
+
+export interface AutoClawScanResult {
+  data_dir: string | null;
+  found: number;
+  imported: number;
+  updated: number;
+  errors: string[];
+}
+
+export interface AutoClawCheckinRecord {
+  date: string;
+  time: string;
+  user_id: string;
+  name: string;
+  region: string;
+  status: string;
+  message: string;
+  reward?: number;
+}
+
+export interface AutoClawWalletSlice {
+  kind: string;
+  balance: number;
+}
+
+export interface AutoClawCreditsAccount {
+  user_id: string;
+  name: string;
+  region: string;
+  ok: boolean;
+  total_balance: number;
+  wallets: AutoClawWalletSlice[];
+  message: string;
+  cached: boolean;
+  fetched_at: number;
+}
+
+export interface AutoClawCreditsResult {
+  ok: boolean;
+  cached: boolean;
+  accounts: AutoClawCreditsAccount[];
+  total_balance: number;
+  fetched_at: string;
+}
+
+export interface AutoClawTrendPoint {
+  date: string;
+  success: number;
+  failed: number;
+}
+
+export interface AutoClawDashboard {
+  accounts: number;
+  checked_today: number;
+  total_credits: number;
+  today_reward: number;
+  trend: AutoClawTrendPoint[];
+  recent: AutoClawCheckinRecord[];
+}
+
+export interface AutoClawCreditsSnapshot {
+  date: string;
+  total: number;
+  accounts: { id: string; balance: number }[];
 }

@@ -1,4 +1,5 @@
 pub mod accounts;
+pub mod autoclaw;
 pub mod api_server;
 pub mod cert;
 pub mod ccswitch;

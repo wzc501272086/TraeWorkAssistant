@@ -17,6 +17,14 @@ import type {
   ToolAliasMapView,
   FingerprintSample,
   AppLocate,
+  AutoClawAccountView,
+  AutoClawCheckinRecord,
+  AutoClawCreditsResult,
+  AutoClawCreditsSnapshot,
+  AutoClawDashboard,
+  AutoClawEnvCheck,
+  AutoClawScanResult,
+  AutoClawSettings,
   CheckinDone,
   CheckinOpts,
   CheckinTrendPoint,
@@ -710,6 +718,49 @@ export const api = {
       }),
   },
   // ---- Qoder（F-80；Rust commands/qoder；字段名严格 snake_case）----
+  autoclaw: {
+    envCheck: () => invoke<AutoClawEnvCheck>('autoclaw_env_check'),
+    accountsList: () => invoke<AutoClawAccountView[]>('autoclaw_accounts_list'),
+    /** 手工粘贴 accessToken 导入（region: cn | global） */
+    importToken: (token: string, region?: string, name?: string) =>
+      invoke<AutoClawAccountView>('autoclaw_import_token', {
+        token,
+        region: region ?? null,
+        name: name ?? null,
+      }),
+    /** 扫描本机登录态（accounts/<id>/account-credentials.enc，DPAPI + AES-GCM） */
+    scanLocal: () => invoke<AutoClawScanResult>('autoclaw_scan_local'),
+    accountUpdate: (id: string, patch: { name?: string; note?: string; region?: string }) =>
+      invoke('autoclaw_account_update', {
+        id,
+        name: patch.name ?? null,
+        note: patch.note ?? null,
+        region: patch.region ?? null,
+      }),
+    accountRemove: (id: string) => invoke('autoclaw_account_remove', { id }),
+    checkinStart: (opts?: { userIds?: string[]; regions?: string[] }) =>
+      invoke('autoclaw_checkin_start', {
+        userIds: opts?.userIds ?? null,
+        regions: opts?.regions ?? null,
+      }),
+    checkinResults: (days?: number) =>
+      invoke<AutoClawCheckinRecord[]>('autoclaw_checkin_results', { days: days ?? null }),
+    creditsFetch: (userId?: string, fresh?: boolean) =>
+      invoke<AutoClawCreditsResult>('autoclaw_credits_fetch', {
+        userId: userId ?? null,
+        fresh: fresh ?? null,
+      }),
+    creditsHistory: () => invoke<AutoClawCreditsSnapshot[]>('autoclaw_credits_history'),
+    dashboard: () => invoke<AutoClawDashboard>('autoclaw_dashboard'),
+    settingsGet: () => invoke<AutoClawSettings>('autoclaw_settings_get'),
+    settingsSet: (patch: AutoClawSettings) => invoke('autoclaw_settings_set', { patch }),
+    openApp: () => invoke('autoclaw_open_app'),
+    openDataDir: () => invoke('autoclaw_open_data_dir'),
+    openSite: (region?: string) => invoke('autoclaw_open_site', { region: region ?? null }),
+    taskRegister: (time: string) => invoke('autoclaw_task_register', { time }),
+    taskStatus: () => invoke<string>('autoclaw_task_status'),
+    taskUnregister: () => invoke('autoclaw_task_unregister'),
+  },
   qoder: {
     envCheck: () => invoke<QoderEnvCheck>('qoder_env_check'),
     /** 打开客户端（后端 spawn；未检测到 exe 时 reject 文案含「未检测到」） */

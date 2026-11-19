@@ -10,7 +10,7 @@ const s = (app_order: unknown[]): Settings => ({ app_order }) as unknown as Sett
 describe('getOrderedApps', () => {
   it('null settings / 空 app_order 返回全默认顺序', () => {
     expect(getOrderedApps(null)).toEqual(ALL_APPS);
-    expect(getOrderedApps(s([]))).toEqual(['trae', 'buddy', 'qoder', 'doubao', 'buddy-ai']);
+    expect(getOrderedApps(s([]))).toEqual(['trae', 'buddy', 'qoder', 'doubao', 'buddy-ai', 'autoclaw']);
   });
 
   it('自定义顺序按 app_order 存储顺序输出，未提及项默认补尾', () => {
@@ -20,6 +20,7 @@ describe('getOrderedApps', () => {
       'buddy',
       'qoder',
       'buddy-ai',
+      'autoclaw',
     ]);
   });
 
@@ -30,6 +31,7 @@ describe('getOrderedApps', () => {
       'trae',
       'buddy',
       'buddy-ai',
+      'autoclaw',
     ]);
   });
 
@@ -40,6 +42,7 @@ describe('getOrderedApps', () => {
       'qoder',
       'doubao',
       'buddy-ai',
+      'autoclaw',
     ]);
   });
 
@@ -50,6 +53,7 @@ describe('getOrderedApps', () => {
       'buddy',
       'qoder',
       'buddy-ai',
+      'autoclaw',
     ]);
   });
 });

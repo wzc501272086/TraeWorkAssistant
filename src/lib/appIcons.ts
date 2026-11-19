@@ -132,4 +132,5 @@ export const DEFAULT_APP_ICONS: Record<AppKey, string> = {
   qoder: 'Boxes',
   doubao: 'LayoutGrid',
   'buddy-ai': 'Globe',
+  autoclaw: 'Cpu',
 };

@@ -14,6 +14,7 @@
 //! 不启动 Tauri（分支在 Builder 之前，天然绕开单实例插件）。任务名随批次扩展：
 //! P1 `doubao-quota`；P2 `wb-checkin`/`wb-renew`/`checkin`；P3 `doubao-renew`。
 
+pub mod autoclaw;
 pub mod doubao_chats;
 pub mod doubao_checkin;
 pub mod doubao_probe;
@@ -130,6 +131,19 @@ pub fn run_cli_task(name: &str, state: &AppState) -> i32 {
                     "skipped": "其他进程正在执行签到，本轮跳过",
                     "skipped_busy": true
                 })),
+            }
+        }
+        // AutoClaw 每日签到（schtasks 直调主 exe --task-run autoclaw-checkin；
+        // 空池幂等跳过，不计失败，对齐 doubao-checkin 口径）
+        "autoclaw-checkin" => {
+            if crate::tasks::autoclaw::load_pool(state).is_empty() {
+                Ok(serde_json::json!({
+                    "ok": true,
+                    "skipped": "无 AutoClaw 账号",
+                    "skipped_empty_pool": true
+                }))
+            } else {
+                Ok(crate::tasks::autoclaw::run_round(state, &[], &[], &mut print_progress))
             }
         }
         // WorkBuddy 每日签到（schtasks 直调；--json-stream --skip-checked 同款参数）。

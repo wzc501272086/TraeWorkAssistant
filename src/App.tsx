@@ -36,6 +36,11 @@ import BuddyAiCheckin from './pages/buddyai/BuddyAiCheckin';
 import BuddyAiCredits from './pages/buddyai/BuddyAiCredits';
 import BuddyAiApiService from './pages/buddyai/BuddyAiApiService';
 import BuddyAiSettings from './pages/buddyai/BuddyAiSettings';
+import AutoClawOverview from './pages/autoclaw/AutoClawOverview';
+import AutoClawAccounts from './pages/autoclaw/AutoClawAccounts';
+import AutoClawCheckin from './pages/autoclaw/AutoClawCheckin';
+import AutoClawCredits from './pages/autoclaw/AutoClawCredits';
+import AutoClawSettings from './pages/autoclaw/AutoClawSettings';
 import ApiManagerModal from './components/api/ApiManagerModal';
 import TraeWorkMigrationGuide from './components/TraeWorkMigrationGuide';
 
@@ -91,6 +96,16 @@ function renderView(view: string) {
       return <QoderApiService key="qoder-api-service" />;
     case 'qoder-settings':
       return <QoderSettings />;
+    case 'autoclaw-overview':
+      return <AutoClawOverview />;
+    case 'autoclaw-accounts':
+      return <AutoClawAccounts />;
+    case 'autoclaw-checkin':
+      return <AutoClawCheckin />;
+    case 'autoclaw-credits':
+      return <AutoClawCredits />;
+    case 'autoclaw-settings':
+      return <AutoClawSettings />;
     case 'buddyai-overview':
       return <BuddyAiOverview />;
     case 'buddyai-accounts':

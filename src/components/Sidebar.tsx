@@ -17,6 +17,7 @@ import {
   Boxes,
   LayoutGrid,
   Globe,
+  Cpu,
 } from 'lucide-react';
 import { useAppStore } from '../store';
 import { cn } from '../lib/cn';
@@ -67,6 +68,15 @@ const QODER_NAV: { key: ViewKey; label: string; icon: typeof Users }[] = [
   { key: 'qoder-settings', label: '环境配置', icon: Settings },
 ];
 
+/** AutoClaw 应用菜单（智谱澳龙：五页，签到/积分走 userapi 真端点） */
+const AUTOCLAW_NAV: { key: ViewKey; label: string; icon: typeof Users }[] = [
+  { key: 'autoclaw-overview', label: '概述', icon: LayoutDashboard },
+  { key: 'autoclaw-accounts', label: '账号管理', icon: Users },
+  { key: 'autoclaw-checkin', label: '一键签到', icon: PlayCircle },
+  { key: 'autoclaw-credits', label: '积分看板', icon: Coins },
+  { key: 'autoclaw-settings', label: '环境配置', icon: Settings },
+];
+
 /** BuddyAI 应用菜单（buddy-ai 国际版独立池；六页子导航对齐国内 Buddy 产品形态） */
 const BUDDYAI_NAV: { key: ViewKey; label: string; icon: typeof Users }[] = [
   { key: 'buddyai-overview', label: '概述', icon: LayoutDashboard },
@@ -85,6 +95,7 @@ export const APP_TABS: { key: AppKey; label: string; icon: typeof Users; disable
   { key: 'qoder', label: 'Qoder', icon: Boxes, title: 'Qoder CN（Qoder CN IDE / Qoder CN / CLI）' },
   { key: 'doubao', label: '豆包', icon: LayoutGrid },
   { key: 'buddy-ai', label: 'BuddyAI', icon: Globe, title: 'Buddy 国际版（buddy-ai 独立池）' },
+  { key: 'autoclaw', label: 'AutoClaw', icon: Cpu, title: 'AutoClaw 澳龙（智谱桌面 Agent）' },
 ];
 
 /** 全部合法应用 key（settings 脏值兜底用） */
@@ -141,6 +152,8 @@ export default function Sidebar({
       ? QODER_NAV
       : activeApp === 'buddy-ai'
       ? BUDDYAI_NAV
+      : activeApp === 'autoclaw'
+      ? AUTOCLAW_NAV
       : NAV;
 
   // 主题轮询：每次点击切换到下一个主题并持久化

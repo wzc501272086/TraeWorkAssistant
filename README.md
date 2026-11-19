@@ -28,7 +28,7 @@
 
 ![AI Work 助手](./docs/images/main.png)
 
-> 深度支持 **Trae（Trae CN）/ WorkBuddy / CodeBuddy / 豆包 / Qoder CN（包含 IDE）** 五应用：多账号签到、登录态切换、积分看板、成长中心自动化、OpenAI / Anthropic / Codex 三协议兼容 API 网关（Trae + WorkBuddy + Qoder + 自定义模型多池调度）、6 层设备标识重置等；WorkBuddy 与 CodeBuddy 共享账号体系，豆包支持快照切换 / 保活 / 额度巡检 / 对话备份，Qoder 支持 PAT / OAuth 设备流 / IDE 登录态扫描三通道入池、每日双活动签到与网关上游接入（当前仅 CN 区）。后续规划扩展更多 AI 应用。
+> 深度支持 **Trae（Trae CN）/ WorkBuddy / CodeBuddy / 豆包 / Qoder CN（包含 IDE）/ AutoClaw（智谱澳龙）** 六应用：多账号签到、登录态切换、积分看板、成长中心自动化、OpenAI / Anthropic / Codex 三协议兼容 API 网关（Trae + WorkBuddy + Qoder + 自定义模型多池调度）、6 层设备标识重置等；WorkBuddy 与 CodeBuddy 共享账号体系，豆包支持快照切换 / 保活 / 额度巡检 / 对话备份，Qoder 支持 PAT / OAuth 设备流 / IDE 登录态扫描三通道入池、每日双活动签到与网关上游接入（当前仅 CN 区）。后续规划扩展更多 AI 应用。
 
 ## 产品形态与版本线
 
@@ -63,6 +63,7 @@
 | 豆包 | ✅ 已支持 | 签到、快照切换/保活/额度巡检/对话备份（公开 Open API 暂时搁置，见[重要提示](#重要提示与免责声明)） | 对话本身免费（无积分制），签到为活动 / 保活性质 |
 | Qoder CN（包含 IDE） | ✅ 已支持 | PAT / OAuth 设备流 / IDE 登录态扫描三通道入池、每日双活动签到、网关上游接入（当前仅 CN 区） | 每日签到 **100 Credits/天**（确定性最高）+ 每日登录奖励（10:00 开窗，多档）；部分模型免费（目录带免费标记） |
 | WorkBuddy AI / CodeBuddy AI（国际版） | ✅ 已支持 | 国际版客户端 authfile 布局变体，独立账号池 | 额度随官方套餐 / 试用发放，独立核算 |
+| AutoClaw（智谱澳龙） | ✅ 已支持（v1） | 本机登录态扫描 / accessToken 导入、国内+海外双区签到（`daily_signin`）、积分钱包看板、每日定时签到；**不含客户端账号切换**（见[说明](docs/AutoClaw支持说明.md)） | 每日签到约 **400 积分**/账号；活动期另有登录奖励 |
 | Qoder（国际版） | 🕒 暂不支持 | 独立池方案已留档（[docs/pending/Qoder国际版支持落地方案.md](docs/pending/Qoder国际版支持落地方案.md)），暂未排期 | 每日单活动领取 100 Credits（10:00 开窗）；Qwen3.8-Flash 等免费模型（0 系数） |
 | LobsterAI（有道） | 🕒 暂不支持 | 暂未规划 | 每日签到领龙虾积分 |
 | Cline | 🕒 暂不支持 | 暂未规划 | Cline 账号自带免费额度（免费模型额度） |
