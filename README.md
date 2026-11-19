@@ -241,9 +241,7 @@ node scripts/package_portable.mjs   # 便携版 zip（AI Work 助手_<版本>_x6
 
 如果这个项目对你有帮助，欢迎请作者喝杯快乐水 ☕
 
-<div align="center">
-<img src="src/assets/donate-qr.jpg" alt="赞赏码" width="220" />
-</div>
+
 
 ## License
 
